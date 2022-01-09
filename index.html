@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+  </head>
+  <body>
+    
+    <div>
+      <div id="website-header">
+        <h1 onclick="goto('landing')">
+          <span id="menu-icon"></span>
+          How <span id="react-logo"></span><span class="blue">React</span> &nbsp; Works
+        </h1>
+        <p>A ReactJS website exploring how to use ReactJS. </p>
+      </div>
+      <div id="page-container">
+        <div id="side-bar">
+          <nav>
+            <div onclick="goto('1-what-is-reactjs')" id="1-what-is-reactjs">What is ReactJS?</div>
+            <div onclick="goto('2-basic-use-cases')" id="2-basic-use-cases">Basic ReactJS use cases</div>
+            <div>JSX</div>
+            <div>Serving a React website</div>
+            <div>Other React tools</div>
+            <div onclick="goto('glossary')" id="glossary">Glossary</div>
+            <div onclick="goto('sources')" id="sources">Sources</div>
+          </nav>
+        </div>
+        <div id="page-content">
+          
+        </div>
+      </div>
+      <!-- <p>
+        Let's try out ReactJS by following the 
+        <a href="https://reactjs.org/docs/add-react-to-a-website.html" target="_blank">React "get started" tutorial</a>.
+      </p>
+      <p>They say our website doesn't need to be a single-page app, so we won't use that design for now -- just plain ol' links.</p>
+    </div>
+    <div id="like_button_container"></div> -->
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- Load our React component. -->
+    <script src="index.js"></script>
+  </body>
+</html>
+
