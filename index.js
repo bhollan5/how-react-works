@@ -23,18 +23,76 @@ function goto(page) {
       if (document.getElementById(page)) {
         document.getElementById(page).classList.add('selected');
       }
+
+      //  Add react code
+      console.log(page)
+      if (typeof react_setups[page] == 'function') {
+        react_setups[page]();
+      }
     }
   }
 }
 
 if ( window.location.pathname.split('/')[1]) {
-  console.log( window.location.pathname)
   goto( window.location.pathname.split('/')[1])
 } else {
   goto('landing');
 }
 
+const react_setups = {
+  '2-react-use-cases': function() {
+    console.log("wowie")
+    class Comment extends React.Component {
+      constructor(props) {
+        super(props);
+      }
 
+      render() {
+        return React.createElement(
+          'div',
+          { className: 'comment-container', key: '0' },
+          [
+            React.createElement(
+              'img',
+              {src: '../assets/profile-pic.png', key: '1'},
+            ),
+            React.createElement(
+              'div',
+              { key: '4'},
+              [
+                React.createElement(
+                  'div',
+                  {className: 'comment-name', key: '2'},
+                  'this.props.comment_name',
+                ),
+                React.createElement(
+                  'div',
+                  {className: 'comment-text', key: '3'},
+                  'this.props.comment_text',
+                )
+              ]
+            )
+          ]
+        );
+      }
+    }
+
+    ReactDOM.render(
+      React.createElement(Comment),
+      document.getElementById('demo-1')
+    );
+
+    // function commentSection(props) {
+    //   return React.createElement(
+    //     'div',
+    //     { id: 'comment-section' },
+    //     ['Like']
+    //   );
+    // }
+
+  }
+
+}
 //  Code for demo 1;
 // class Demo1 extends React.Component {
 //   constructor(props) {

@@ -2,6 +2,8 @@
 :root {
   --blue: #61DAFB;
   --gray: #262626;
+  --darkgray: rgb(26,26,26);
+  --lightgray: #404040;
 }
 html, body {
   font-family: sans-serif;
@@ -11,9 +13,20 @@ html, body {
   padding: 0px;
 }
 
-
+.bold {
+  font-weight: bold;
+}
 .blue {
   color: var(--blue);
+}
+.flex {
+  display: flex;
+}
+a {
+  color: var(--blue);
+}
+p, li {
+  line-height: 25px;
 }
 
 /*  Website header styling */
@@ -73,8 +86,9 @@ h1 {
   height: calc(100vh - 120px);
   box-shadow: 0px 0px 10px black;
   padding-top: 10px;
+  box-sizing: border-box;
   z-index: 5;
-  background: rgb(26,26,26);
+  background: var(--darkgray);
   position: relative;
 }
 #side-bar nav div {
@@ -113,8 +127,13 @@ h1 {
 }
 
 #page-content {
-  padding: 25px 100px;
+  width: 800px;
+  margin: 0 auto;
+  height: calc(100vh - 120px);
+  position: relative;
+  padding: 25px 100px 200px 100px;
   box-sizing: border-box;
+  overflow-y: scroll;
 }
 
 h2 {
@@ -122,21 +141,47 @@ h2 {
   font-size: 2em;
 }
 
-a {
-  color: var(--blue);
+
+
+/* Demo 1: */
+#comment-section {
+  width: 300px;
+  min-height: 100px;
+  background: var(--darkgray);
+  box-shadow: 0px 0px 10px black;
 }
-
-p {
-  line-height: 25px;
+#comment-header {
+  width: 100%;
+  background: var(--gray);
+  color: var(--lightgray);
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  box-sizing: border-box;
 }
-
-/*  */
-
-.flex {
+.comment-container {
   display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.comment-container:not(:last-of-type) {
+  border-bottom: solid 1px var(--lightgray);
+}
+.comment-container img {
+  width: 30px;
+  height: 30px;
+}
+.comment-name {
+  font-size: .9em;
+  color: var(--lightgray);
+}
+.comment-text {
+  width: 200px;
 }
 
-#demo-1 {
+
+/* #demo-1 {
   text-align: center;
   width: 100%
 }
@@ -147,4 +192,4 @@ p {
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
-}
+} */

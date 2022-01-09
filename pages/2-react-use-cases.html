@@ -1,0 +1,60 @@
+<h2>React use cases</h2>
+<p>In my opinion, the main benefits of React can be summarized in these four categories of features:</p>
+<ul>
+  <li><span class="blue bold">Component composition</span> and <span class="blue bold">reuse</span></li>
+  <li>DOM <span class="blue bold">event handling</span></li>
+  <li><span class="blue bold">State management</span> within your website</li>
+  <li><span class="blue bold">Reactive DOM content</span> and <span class="blue bold">attributes</span></li>
+</ul>
+<p>Let's look at an example of each of these four features.</p>
+<br /><br /><br /><br />
+
+<h3><span class="blue">Component composition</span> and <span class="blue">reuse</span></h3>
+<p>
+  All website pages are composed of HTML tags, with attributes and text content.
+  Without a JavaScript framework like React, these tags are hardcoded into the webpage.
+</p>
+<p>
+  React lets users define "components", made of HTML tags.  
+  This approach lets pages be composed of well-defined components, rather than masses of HTML tags.
+  Also, this approach lets users <i>reuse</i> components, maintaining some of that component's style and content,
+  while replacing some data as needed.
+</p>
+<p>
+  For example, 
+</p>
+<br/>
+<div class="flex" id="demo-1">
+  <div id="comment-section">
+    <div id="comment-header">
+      Comments
+    </div>
+    <div class="comment-container">
+      <img src="../assets/profile-pic.png">
+      <div>
+        <div class="comment-name">John Doe</div>
+        <div class="comment-text">Nice ReactJS tutorial.</div>
+      </div>
+    </div>
+    <div class="comment-container">
+      <img src="../assets/profile-pic.png">
+      <div>
+        <div class="comment-name">Evan You</div>
+        <div class="comment-text">Personally I think VueJS is better.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="flex" id="demo-1">
+  <div class="demo-1-container">
+    <div>
+      <div>Enter your name</div>
+      <input type="text" />
+    </div>
+  </div>
+  <div class="demo-1-container">
+    <div>Your name is <b>8</b> characters long.</div>
+
+  </div>
+</div> -->
