@@ -29,6 +29,12 @@ function goto(page) {
       if (typeof react_setups[page] == 'function') {
         react_setups[page]();
       }
+
+      //  Pretty printing source code
+      PR.prettyPrint()
+
+      //  Scroll to top of page
+      document.getElementById('page-content').scrollTop = 0;
     }
   }
 }
@@ -40,8 +46,29 @@ if ( window.location.pathname.split('/')[1]) {
 }
 
 const react_setups = {
+  '1-what-is-reactjs': function() {
+
+    //  A function we want the button to call. 
+    function hello_world() {
+      alert("Hello world, from React!");
+    }
+
+    //  React's syntax to define our button component.
+    function ButtonComponent() {
+      return React.createElement(
+        'button',                 // The tag name
+        { onClick: hello_world }, //  The element properties
+        'Hello world!'             //  The element's inner content
+      )
+    }
+
+    //  Rendering the button in the 'button-demo' div.
+    ReactDOM.render(
+      React.createElement(ButtonComponent),
+      document.getElementById('button-demo')
+    );
+  },
   '2-react-use-cases': function() {
-    console.log("wowie")
     class Comment extends React.Component {
       constructor(props) {
         super(props);
@@ -115,3 +142,11 @@ const react_setups = {
 
 // const domContainer = document.querySelector('#demo1');
 // ReactDOM.render(React.createElement(Demo1), domContainer);
+
+function hello_world() {
+  alert("Hello world, from vanilla JS!")
+}
+
+function toggle_menu() {
+  
+}

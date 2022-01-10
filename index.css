@@ -28,6 +28,16 @@ a {
 p, li {
   line-height: 25px;
 }
+pre, code {
+  font-size: 1rem;
+  border-radius: 4px;
+  padding: 5px;
+  overflow-x: scroll;
+}
+.link {
+  cursor: pointer;
+  text-decoration: underline;
+}
 
 /*  Website header styling */
 #website-header {
@@ -64,7 +74,7 @@ h1 {
 #website-header p {
   color: gray;
   margin-top: 10px;
-  margin-left: 45px;
+  margin-left: 0px; /*45px;*/
 }
 #react-logo {
   display: inline-block;
@@ -131,7 +141,7 @@ h1 {
   margin: 0 auto;
   height: calc(100vh - 120px);
   position: relative;
-  padding: 25px 100px 200px 100px;
+  padding: 25px 100px 400px 100px;
   box-sizing: border-box;
   overflow-y: scroll;
 }

@@ -1,7 +1,7 @@
 <h2>What is ReactJS?</h2>
 <p>React is an open-source JavaScript framework, created by Facebook in 2013. It's used for building website UIs.</p>
 <br/>
-<p>There are lots of options for how to design a website. The React "framework" gives you some powerful tools to design the content you want.</p>
+<p>There are lots of options for how to design a website. The React "framework" gives you some powerful tools to design and manage bigger projects.</p>
 <br/>
 <p>React lets users build "reactive" web pages, where changes to a single peice of data can propagate to multiple areas. </p>
 <br/><br/><br/><br/>
@@ -12,4 +12,74 @@
   All website pages are composed of HTML tags, with attributes and text content.
   Without a JavaScript framework like React, these tags are hardcoded into the webpage.
 </p>
-<p>For example, below </p>
+<p>For example, here is the code for a simple <code>button</code> HTML tag, set up to call a Javascript function:</p>
+<br/>
+<pre class="prettyprint">
+  &lt;button onclick=&quot;hello_world()&quot;\&gt;
+    Hello world!
+  &lt;/button&gt;
+  &lt;script&gt;
+    function hello_world() {
+      alert(&quot;Hello world, from vanilla JS!&quot;);
+    }
+  &lt;/script&gt;
+</pre>
+<br/>
+<p>That code produces this, with no ReactJS necessary:</p>
+<br/>
+<button onclick="hello_world()">
+  Hello world!
+</button>
+<br/>
+<p>We can create that component using React's syntax as well, like so:</p>
+<br/>
+<pre class="prettyprint">
+  &lt;!--  Adding the two necessary scripts to run React: --&gt;
+  &lt;script src=&quot;https://unpkg.com/react@17/umd/react.development.js&quot; crossorigin&gt;&lt;/script&gt;  
+  &lt;script src=&quot;https://unpkg.com/react-dom@17/umd/react-dom.development.js&quot; crossorigin&gt;&lt;/script&gt;
+  &lt;!--  Here's where we'll insert out button component: --&gt;
+  &lt;div id=&quot;button-demo&quot;&gt;&lt;/div&gt;
+  &lt;!--  And here's the Javascript we'll run to create our button component. --&gt;
+  &lt;script&gt;
+  //  A function we want the button to call. 
+      function hello_world() {
+        alert(&quot;Hello world, from React!&quot;);
+      }
+
+      //  React's syntax to define our button component.
+      function ButtonComponent() {
+        return React.createElement(
+          'button',                 // The tag name
+          { onClick: hello_world }, //  The element properties
+          'Hello world!'             //  The element's inner content
+        )
+      }
+
+      //  Rendering the button in the 'button-demo' div.
+      ReactDOM.render(
+        React.createElement(ButtonComponent),
+        document.getElementById('button-demo')
+      );
+  &lt;/script&gt;
+</pre>
+<br/>
+<p>And the product of that code will be the same as the "vanilla" HTML and CSS version, as you can see here:</p>
+<br/>
+<div id="button-demo"></div>
+<br/><br/><br/><br/>
+
+<p>
+  At this point, you may be asking: <i>Why do it this way?</i>
+</p>
+<p>What do we gain from adding HTML through Javascript, as a "component"?</p>
+<p>
+  If you're wondering that, you're ready for the next section,
+  <span onclick="goto('2-react-use-cases')" class="blue link">2. React Use Cases</span>.
+</p>
+<br/>
+
+<p>You may also be thinking, <i>Defining JS components sounds neat, but is there an easier way than that long script syntax?</i></p>
+<p>
+  To answer that question, you'll have to wait for section three, 
+  <span onclick="goto('3-jsx')" class="blue link">3. JSX</span>, where we'll learn that there is, certainly, a simpler component definition syntax we can use.
+</p>
