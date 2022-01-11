@@ -69,53 +69,71 @@ const react_setups = {
     );
   },
   '2-react-use-cases': function() {
-    class Comment extends React.Component {
-      constructor(props) {
-        super(props);
-      }
-
-      render() {
-        return React.createElement(
-          'div',
-          { className: 'comment-container', key: '0' },
-          [
-            React.createElement(
-              'img',
-              {src: '../assets/profile-pic.png', key: '1'},
-            ),
-            React.createElement(
-              'div',
-              { key: '4'},
-              [
-                React.createElement(
-                  'div',
-                  {className: 'comment-name', key: '2'},
-                  'this.props.comment_name',
-                ),
-                React.createElement(
-                  'div',
-                  {className: 'comment-text', key: '3'},
-                  'this.props.comment_text',
-                )
-              ]
-            )
-          ]
-        );
-      }
+    //  Defining a "Comment" component
+    function Comment(props) {
+      return React.createElement(
+        'div',
+        { className: 'comment-container', key: props.key + '-1' },
+        [
+          React.createElement(
+            'img',
+            {src: '../assets/profile-pic.png', key: props.key + '-2' },
+          ),
+          React.createElement(
+            'div',
+            { key: props.key + '-3'},
+            [
+              React.createElement(
+                'div',
+                {className: 'comment-name', key: props.key + '-4'},
+                props.comment_name,
+              ),
+              React.createElement(
+                'div',
+                {className: 'comment-text', key: props.key + '-5'},
+                props.comment_text,
+              )
+            ]
+          )
+        ]
+      );
     }
 
+    //  Defining a "CommentSection" component
+    function CommentSection(props) {
+      return React.createElement(
+        'div',
+        { className: 'comment-section' },
+        [
+          React.createElement(
+            'div',
+            { className: 'comment-header', key: '1' },
+            'Comments'
+          ),
+          Comment({
+            comment_name: 'John Doe',
+            comment_text: 'Hey, nice ReactJS tutorial.',
+            key: '1'
+          }),
+          Comment({
+            comment_name: 'Evan You',
+            comment_text: 'Personally I think VueJS is better.',
+            key: '2'
+          }),
+          Comment({
+            comment_name: 'Jordan Walke',
+            comment_text: 'Well, you would, wouldn\'t you.',
+            key: '3'
+          }),
+        ]
+      );
+    }
+    
+    //  Rendering our commentSection component
     ReactDOM.render(
-      React.createElement(Comment),
+      CommentSection(),
       document.getElementById('demo-1')
     );
-
-    // function commentSection(props) {
-    //   return React.createElement(
-    //     'div',
-    //     { id: 'comment-section' },
-    //     ['Like']
-    //   );
-    // }
 
   }
 

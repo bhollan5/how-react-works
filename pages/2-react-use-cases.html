@@ -15,18 +15,34 @@
   Without a JavaScript framework like React, these tags are hardcoded into the webpage.
 </p>
 <p>
-  React lets users define "components", made of HTML tags.  
+  React lets me define "components", made of HTML tags.  
   This approach lets pages be composed of well-defined components, rather than masses of HTML tags.
-  Also, this approach lets users <i>reuse</i> components, maintaining some of that component's style and content,
+  Also, this approach lets me <i>reuse</i> components, maintaining some of that component's style and content,
   while replacing some data as needed.
 </p>
-<p>
-  For example, 
-</p>
 <br/>
-<div class="flex" id="demo-1">
-  <div id="comment-section">
-    <div id="comment-header">
+<p>
+  For example, here's some vanilla HTML for a comment display box. 
+</p>
+<pre class="prettyprint">
+  &lt;div id=&quot;comment-section&quot;&gt;
+    &lt;div id=&quot;comment-header&quot;&gt;
+      Comments
+    &lt;/div&gt;
+    &lt;div class=&quot;comment-container&quot;&gt;
+      &lt;img src=&quot;../assets/profile-pic.png&quot;&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;comment-name&quot;&gt;John Doe&lt;/div&gt;
+        &lt;div class=&quot;comment-text&quot;&gt;Nice ReactJS tutorial.&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+</pre>
+<br/>
+<p>And here's the output from that HTML. (Styled with CSS that I didn't include in the code above.)</p>
+<div class="flex">
+  <div class="comment-section">
+    <div class="comment-header">
       Comments
     </div>
     <div class="comment-container">
@@ -36,15 +52,113 @@
         <div class="comment-text">Nice ReactJS tutorial.</div>
       </div>
     </div>
-    <div class="comment-container">
-      <img src="../assets/profile-pic.png">
-      <div>
-        <div class="comment-name">Evan You</div>
-        <div class="comment-text">Personally I think VueJS is better.</div>
-      </div>
-    </div>
   </div>
 </div>
+<br/>
+<p>My code looks nice and is functional without React. But let's say I want to show a list of many comments, by different users.</p>
+<p>
+  With React, I can define a <code>Comment</code> component, and <i>reuse</i> it as many times as I'd like.
+  My <code>Comment</code> component can be customized to display only the data that it needs to display -- the comment poster's name, and the comment text.
+</p>
+<p>
+  I can also <i>compose</i> the entire Comment Section, including the header, out of components, into a single <code>CommentSection</code> component.
+  This is a nice way to organize things, and will come in handy if I want multiple comment sections on my website.
+</p>
+<br/>
+<p>Here's the react code. (Note that this will be a lot shorter and easier to read when we introduce JSX in the next section.)</p>
+<br/>
+<pre class="prettyprint">
+  &lt;!--  Adding the two necessary scripts to run React: --&gt;
+&lt;script src=&quot;https://unpkg.com/react@17/umd/react.development.js&quot; crossorigin&gt;&lt;/script&gt;  
+&lt;script src=&quot;https://unpkg.com/react-dom@17/umd/react-dom.development.js&quot; crossorigin&gt;&lt;/script&gt;
+&lt;!--  Here's where we'll insert out button component: --&gt;
+&lt;div id=&quot;comment-demo&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+    //  Defining a &quot;Comment&quot; component
+    function Comment(props) {
+      return React.createElement(
+        'div',
+        { className: 'comment-container', key: props.key + '-1' },
+        [
+          React.createElement(
+            'img',
+            {src: '../assets/profile-pic.png', key: props.key + '-2' },
+          ),
+          React.createElement(
+            'div',
+            { key: props.key + '-3'},
+            [
+              React.createElement(
+                'div',
+                {className: 'comment-name', key: props.key + '-4'},
+                props.comment_name,
+              ),
+              React.createElement(
+                'div',
+                {className: 'comment-text', key: props.key + '-5'},
+                props.comment_text,
+              )
+            ]
+          )
+        ]
+      );
+    }
+
+    //  Defining a &quot;CommentSection&quot; component
+    function CommentSection(props) {
+      return React.createElement(
+        'div',
+        { className: 'comment-section' },
+        [
+          React.createElement(
+            'div',
+            { className: 'comment-header', key: '1' },
+            'Comments'
+          ),
+          Comment({
+            comment_name: 'John Doe',
+            comment_text: 'Hey, nice ReactJS tutorial.',
+            key: '1'
+          }),
+          Comment({
+            comment_name: 'Evan You',
+            comment_text: 'Personally I think VueJS is better.',
+            key: '2'
+          }),
+          Comment({
+            comment_name: 'Jordan Walke',
+            comment_text: 'Well, you would, wouldn\'t you.',
+            key: '3'
+          }),
+        ]
+      );
+    }
+    
+    //  Rendering our commentSection component
+    ReactDOM.render(
+      CommentSection(),
+      document.getElementById('comment-demo')
+    );
+&lt;/script&gt;
+</pre>
+<br/>
+<p>And here is the product of that React code:</p>
+<div id="demo-1"></div>
+<br/><br/><br/><br/>
+
+<h3>DOM <span class="blue">event handling</span></h3>
+<p>
+  In vanilla HTML and JS, several HTML elements can emit <i>events</i> when the user interacts with them.
+  Events trigger Javascript functions to run. 
+</p>
+<p>
+  A button might fire a function "onclick", or a text input might fire an event "onkeypress".
+</p>
+<p>
+  ReactJS links HTML element events to JS functions, too.
+  But in React, elements are organized into components -- and functions can be too.
+</p>
 
 <!-- <div class="flex" id="demo-1">
   <div class="demo-1-container">

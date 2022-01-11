@@ -154,13 +154,13 @@ h2 {
 
 
 /* Demo 1: */
-#comment-section {
+.comment-section {
   width: 300px;
   min-height: 100px;
   background: var(--darkgray);
   box-shadow: 0px 0px 10px black;
 }
-#comment-header {
+.comment-header {
   width: 100%;
   background: var(--gray);
   color: var(--lightgray);
