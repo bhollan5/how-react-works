@@ -1,12 +1,13 @@
 <h2>React use cases</h2>
-<p>In my opinion, the main benefits of React can be summarized in these four categories of features:</p>
+<p>In my opinion, the main benefits of React can be summarized in these three categories of features:</p>
 <ul>
   <li><span class="blue bold">Component composition</span> and <span class="blue bold">reuse</span></li>
-  <li>DOM <span class="blue bold">event handling</span></li>
-  <li><span class="blue bold">State management</span> within your website</li>
+  <li>DOM <span class="blue bold">event handling</span> and <span class="blue bold">state management</span></li>
   <li><span class="blue bold">Reactive DOM content</span> and <span class="blue bold">attributes</span></li>
 </ul>
-<p>Let's look at an example of each of these four features.</p>
+<p>Let's look at an example of each of these three features.</p>
+<br /><br /><br /><br />
+<hr/>
 <br /><br /><br /><br />
 
 <h3><span class="blue">Component composition</span> and <span class="blue">reuse</span></h3>
@@ -65,13 +66,13 @@
   This is a nice way to organize things, and will come in handy if I want multiple comment sections on my website.
 </p>
 <br/>
-<p>Here's the react code. (Note that this will be a lot shorter and easier to read when we introduce JSX in the next section.)</p>
+<p>Here's the React code. (Note that this will be a lot shorter and easier to read when I introduce JSX in the next section.)</p>
 <br/>
 <pre class="prettyprint">
-  &lt;!--  Adding the two necessary scripts to run React: --&gt;
+&lt;!--  Adding the two necessary scripts to run React: --&gt;
 &lt;script src=&quot;https://unpkg.com/react@17/umd/react.development.js&quot; crossorigin&gt;&lt;/script&gt;  
 &lt;script src=&quot;https://unpkg.com/react-dom@17/umd/react-dom.development.js&quot; crossorigin&gt;&lt;/script&gt;
-&lt;!--  Here's where we'll insert out button component: --&gt;
+&lt;!--  Here's where I'll insert the button component: --&gt;
 &lt;div id=&quot;comment-demo&quot;&gt;&lt;/div&gt;
 &lt;script&gt;
 
@@ -146,8 +147,10 @@
 <p>And here is the product of that React code:</p>
 <div id="demo-1"></div>
 <br/><br/><br/><br/>
+<hr/>
+<br /><br /><br /><br />
 
-<h3>DOM <span class="blue">event handling</span></h3>
+<h3>DOM <span class="blue">event handling</span> and <span class="blue">state management</span></h3>
 <p>
   In vanilla HTML and JS, several HTML elements can emit <i>events</i> when the user interacts with them.
   Events trigger Javascript functions to run. 
@@ -159,16 +162,353 @@
   ReactJS links HTML element events to JS functions, too.
   But in React, elements are organized into components -- and functions can be too.
 </p>
+<p>
+  As an app grows bigger, organizing functions by the components that use them becomes very useful.
+  And, along with a component's functions, components can also store <i>state</i>, which is data that's used by those functions, and rendered on the page.
+</p>
+<br/>
+<p>Here's some vanilla HTML and JS to react to events from an input and a button:</p>
+<pre class="prettyprint">
+  &lt;input type=&quot;text&quot; id=&quot;text-input&quot; onkeyup=&quot;text_input()&quot; /&gt;
+  &lt;br/&gt;&lt;br/&gt;
+  &lt;div&gt;Current input: &lt;span id=&quot;text-input-display&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;br/&gt;
+  &lt;button onclick=&quot;submit_input()&quot;&gt;Submit input&lt;/button&gt;
+  &lt;script&gt;
+  function text_input() {
+    let the_text = document.getElementById('text-input').value;
+    document.getElementById('text-input-display').innerHTML = the_text;
+  }
+  function submit_input() {
+    let the_text = document.getElementById('text-input').value;
+    alert(&quot;Submitting the text input: &quot; + the_text);
+  }
+  &lt;/script&gt;
+</pre>
+<br/>
+<p>And here's the result of that code.  Type in the input to make text appear on the page, click the button to make that text appear in a popup. </p>
+<div>
+  <input type="text" id="text-input" onkeyup="text_input()" />
+  <br/><br/>
+  <div>Current input: <span id="text-input-display"></span></div>
+  <br/>
+  <button onclick="submit_input()">Submit input</button>
+</div>
+<br/><br/>
+<p>Now, let's recreate those event listeners using a React component.</p>
+<pre class="prettyprint">
+  &lt;!--  Adding the two necessary scripts to run React: --&gt;
+  &lt;script src=&quot;https://unpkg.com/react@17/umd/react.development.js&quot; crossorigin&gt;&lt;/script&gt;  
+  &lt;script src=&quot;https://unpkg.com/react-dom@17/umd/react-dom.development.js&quot; crossorigin&gt;&lt;/script&gt;
+  &lt;!--  Here's where I'll insert the EventDemo component: --&gt;
+  &lt;div id=&quot;event-demo&quot;&gt;&lt;/div&gt;
+  &lt;script&gt;
+  
+  //  Defining our EventDemo component.
+  class EventDemo extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { text_value: ''};
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+    }
+  
+    handleChange(event) {
+      console.log("Changin?")
+      this.setState({text_value: event.target.value});
+    }
 
-<!-- <div class="flex" id="demo-1">
-  <div class="demo-1-container">
+    handleSubmit(event) {
+      alert('Submitting the text input: ' + this.state.text_value);
+    }
+  
+    render() {
+      return React.createElement(
+        'div',
+        { key: '1' },
+        [
+          React.createElement(
+            'input',
+            { 
+              type: 'text', 
+              onChange: this.handleChange, 
+              key: '2' 
+            }
+          ),
+          React.createElement('br', { key: '3' } ),
+          React.createElement('br', { key: '4' } ),
+          React.createElement(
+            'div',
+            { key: '5' },
+            `Current input: ${this.state.text_value}` 
+          ),
+          React.createElement('br', { key: '6' } ),
+          React.createElement(
+            'button',
+            { key: '7', onClick: this.handleSubmit },
+            `Submit input` 
+          ),
+        ]
+      )
+    }
+  } //  End of EventDemo definition
+
+  //  Rendering our EventDemo component
+  ReactDOM.render(
+    React.createElement(EventDemo),
+    document.getElementById('demo-2')
+  );
+  &lt;/script&gt;
+</pre>
+<br/>
+<p>And here's the result of our React code:</p>
+<div id="demo-2"></div>
+<br/>
+<p>
+  In the code above, I store a piece of data in the EventDemo component's state.
+  In the next example, I'll show how component state allows me to create more complex reactive systems, with multiple components sharing data, and staying in sync.
+</p>
+<br/>
+<br/><br/><br/><br/>
+<hr/>
+<br /><br /><br /><br />
+
+<h3><span class="blue">Reactive DOM content</span> and <span class="blue">attributes</span></h3>
+<p>When people talk about <i>reactive</i> programming, they're referring to a system where data changes <i>propagate</i> to multiple places.</p>
+<p>
+  In this example, I'll keep track of a user's name, and display it multiple places.
+  When the name changes, the data change will propagate to all the places the name is displayed.
+</p>
+<p>Anywhere the name is displayed will, in effect, <i>react</i> to our data change.</p>
+<br/>
+<p>But first, I'll apply this pattern with vanilla HTML and JS.</p>
+<pre class="prettyprint">
+  &lt;div class=&quot;flex&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;div&gt;
+        &lt;div&gt;Enter your name&lt;/div&gt;
+        &lt;input
+          type=&quot;text&quot;
+          id=&quot;demo-3-name-input&quot;
+          onkeyup=&quot;name_input()&quot;
+          value=&quot;Jane Doe&quot;
+        /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;div&gt;Your name is &lt;b id=&quot;name-length&quot;&gt;8&lt;/b&gt; characters long.&lt;/div&gt;
+      &lt;div class=&quot;user-badge&quot;&gt;
+        &lt;img src=&quot;../assets/profile-pic.png&quot;&gt;
+        &lt;span class=&quot;demo-3-name&quot;&gt;Jane Doe&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div&gt;Welcome, &lt;span class=&quot;demo-3-name&quot;&gt;Jane Doe&lt;/span&gt;!&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt; 
+  &lt;script&gt;
+  function name_input() {
+    let the_name = document.getElementById('demo-3-name-input').value;
+    document.getElementById('name-length').innerHTML = the_name.length;
+    let name_displays = document.querySelectorAll('.demo-3-name');
+    for (let i = 0; i &lt; name_displays.length; i++) {
+      name_displays[i].innerHTML = the_name;
+    }
+  }
+  &lt;/script&gt;
+</pre>
+<br/>
+<p>And here's the output of that vanilla HTML and JS:</p>
+
+<div class="flex" id="demo-3-vanilla">
+  <div class="demo-3-container">
     <div>
       <div>Enter your name</div>
-      <input type="text" />
+      <input
+        type="text"
+        id="demo-3-name-input"
+        onkeyup="name_input()"
+        value="Jane Doe"
+      />
     </div>
   </div>
-  <div class="demo-1-container">
-    <div>Your name is <b>8</b> characters long.</div>
-
+  <div class="demo-3-container">
+    <div>Your name is <b id="name-length">8</b> characters long.</div>
+    <div class="user-badge">
+      <img src="../assets/profile-pic.png">
+      <span class="demo-3-name">Jane Doe</span>
+    </div>
+    <div>Welcome, <span class="demo-3-name bold">Jane Doe</span>!</div>
   </div>
-</div> -->
+</div> 
+<br/>
+<p>Finally, here's the same code, recreated with React.</p>
+<p>In React, I'll compose the elements above in four components:</p>
+<ul>
+  <li>A <code>NameLength</code> component,</li>
+  <li>A <code>UserBadge</code> component,</li>
+  <li>A <code>WelcomeMessage</code> component, and</li>
+  <li>A <code>UserApp</code> component. </li>
+</ul>
+<p>
+  The <code>UserApp</code> will store the user's name in its state, and have the function to react to the user's input.
+  <code>UserApp</code> will also contain the other three components, and pass it's state.name variable to them, as a <i>prop</i>.
+</p>
+<p>
+  This pattern ties together all the concepts described on this page, to make a well organized reactive app. 
+</p>
+<p>Here's the code...</p>
+<pre class="prettyprint">
+  &lt;!--  Adding the two necessary scripts to run React: --&gt;
+  &lt;script src=&quot;https://unpkg.com/react@17/umd/react.development.js&quot; crossorigin&gt;&lt;/script&gt;  
+  &lt;script src=&quot;https://unpkg.com/react-dom@17/umd/react-dom.development.js&quot; crossorigin&gt;&lt;/script&gt;
+  &lt;!--  Here's where I'll insert the EventDemo component: --&gt;
+  &lt;div id=&quot;reactive-demo&quot;&gt;&lt;/div&gt;
+  &lt;script&gt;
+    //  Defining the NameLength component.
+    class NameLength extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      //  &lt;div&gt;Your name is &lt;b id=&quot;name-length&quot;&gt;8&lt;/b&gt; characters long.&lt;/div&gt;
+      render() {
+        return React.createElement(
+          'div',
+          { key: '1' },
+          [
+            'Your name is ',
+            React.createElement(
+              'b',
+              { key: '2' },
+              this.props.name.length
+            ),
+            ' characters long.'
+          ]
+        )
+      }
+    } //  End of NameLength component.
+
+    //  Defining the UserBadge component.
+    class UserBadge extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      /*&lt;div class=&quot;user-badge&quot;&gt;&lt;img src=&quot;../assets/profile-pic.png&quot;&gt;&lt;span&gt;Jane Doe&lt;/span&gt;&lt;/div&gt;*/
+      render() {
+        return React.createElement(
+          'div',
+          { className: 'user-badge', key: '1' },
+          [
+            React.createElement(
+              'img',
+              { src: '../assets/profile-pic.png', key: '2' },
+            ),
+            React.createElement(
+              'span',
+              { key: '3' },
+              this.props.name
+            ),
+          ]
+        )
+      }
+    } //  End of UserBadge component.
+
+    //  Defining the WelcomeMessage component.
+    class WelcomeMessage extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      // &lt;div&gt;Welcome, &lt;span&gt;Jane Doe&lt;/span&gt;!&lt;/div&gt;
+      render() {
+        return React.createElement(
+          'div',
+          { key: '1' },
+          [
+            'Welcome, ',
+            React.createElement(
+              'span',
+              { className: 'bold', key: '2' },
+              this.props.name
+            ),
+            '!'
+          ]
+        )
+      }
+    } //  End of WelcomeMessage component.
+
+    //  Defining the UserApp component.
+    class UserApp extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {name: 'Jane Doe'}
+        this.handleChange = this.handleChange.bind(this);
+      }
+
+      handleChange(event) {
+        this.setState({name: event.target.value});
+      }
+
+      render() {
+        return React.createElement(
+          'div',
+          { className: 'flex', id: 'demo-3-react', key: '1' },
+          [
+            //  The text input
+            React.createElement(
+              'div',
+              { className: 'demo-3-container', key: '2' },
+              React.createElement(
+                'div',
+                { key: '3'},
+                [
+                  React.createElement(
+                    'div',
+                    { key: '4' },
+                    'Enter your name'
+                  ),
+                  React.createElement(
+                    'input',
+                    { 
+                      type: 'text', 
+                      value: this.state.name,
+                      onChange: this.handleChange, 
+                      key: '5' 
+                    }
+                  ),
+                ]
+              )
+            ),
+            //  The other components
+            React.createElement(
+              'div',
+              { className: 'demo-3-container', key: '6' },
+              React.createElement(NameLength, {name: this.state.name}, null),
+              React.createElement(UserBadge, {name: this.state.name}, null),
+              React.createElement(WelcomeMessage, {name: this.state.name}, null),
+            ),
+          ]
+        )
+      }
+    } //  End of UserApp component.
+
+    //  Rendering the EventDemo component
+    ReactDOM.render(
+      React.createElement(UserApp),
+      document.getElementById('reactive-demo')
+    );
+  &lt;/script&gt;
+</pre>
+<p>And here's that React code in action.</p>
+<div id="demo-3"></div>
+
+<br/>
+<p>
+  Behold! The components are neatly organized, with state and functionality defined by component.
+  And with the power of composition and passing props, the app is fully reactive. 
+</p>
+<br/><br/><br/><br/>
+<p>
+  After seeing how long our React component definitions were, though, you're probably not convinced.
+  Luckily, the next concept to cover is <span onclick="goto('3-jsx')" class="blue link">2. JSX</span>, a syntax to write these components much more succinctly. 
+</p>

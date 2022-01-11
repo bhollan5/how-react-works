@@ -25,7 +25,6 @@ function goto(page) {
       }
 
       //  Add react code
-      console.log(page)
       if (typeof react_setups[page] == 'function') {
         react_setups[page]();
       }
@@ -69,6 +68,7 @@ const react_setups = {
     );
   },
   '2-react-use-cases': function() {
+    //// DEMO 1
     //  Defining a "Comment" component
     function Comment(props) {
       return React.createElement(
@@ -135,36 +135,223 @@ const react_setups = {
       document.getElementById('demo-1')
     );
 
+    //// DEMO 2
+    //  Defining our EventDemo component.
+    class EventDemo extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { text_value: ''};
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+    
+      handleChange(event) {
+        this.setState({text_value: event.target.value});
+      }
+
+      handleSubmit(event) {
+        alert('Submitting the text input: ' + this.state.text_value);
+      }
+    
+      render() {
+        return React.createElement(
+          'div',
+          { key: '1' },
+          [
+            React.createElement(
+              'input',
+              { 
+                type: 'text', 
+                onChange: this.handleChange, 
+                key: '2' 
+              }
+            ),
+            React.createElement('br', { key: '3' } ),
+            React.createElement('br', { key: '4' } ),
+            React.createElement(
+              'div',
+              { key: '5' },
+              `Current input: ${this.state.text_value}` 
+            ),
+            React.createElement('br', { key: '6' } ),
+            React.createElement(
+              'button',
+              { key: '7', onClick: this.handleSubmit },
+              `Submit input` 
+            ),
+          ]
+        )
+      }
+    } //  End of EventDemo definition
+
+    //  Rendering the EventDemo component
+    ReactDOM.render(
+      React.createElement(EventDemo),
+      document.getElementById('demo-2')
+    );
+
+
+    //// DEMO 3
+    //  Defining the NameLength component.
+    class NameLength extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      //  <div>Your name is <b id="name-length">8</b> characters long.</div>
+      render() {
+        return React.createElement(
+          'div',
+          { key: '1' },
+          [
+            'Your name is ',
+            React.createElement(
+              'b',
+              { key: '2' },
+              this.props.name.length
+            ),
+            ' characters long.'
+          ]
+        )
+      }
+    } //  End of NameLength component.
+
+    //  Defining the UserBadge component.
+    class UserBadge extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      /*<div class="user-badge"><img src="../assets/profile-pic.png"><span>Jane Doe</span></div>*/
+      render() {
+        return React.createElement(
+          'div',
+          { className: 'user-badge', key: '1' },
+          [
+            React.createElement(
+              'img',
+              { src: '../assets/profile-pic.png', key: '2' },
+            ),
+            React.createElement(
+              'span',
+              { key: '3' },
+              this.props.name
+            ),
+          ]
+        )
+      }
+    } //  End of UserBadge component.
+
+    //  Defining the WelcomeMessage component.
+    class WelcomeMessage extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      // <div>Welcome, <span>Jane Doe</span>!</div>
+      render() {
+        return React.createElement(
+          'div',
+          { key: '1' },
+          [
+            'Welcome, ',
+            React.createElement(
+              'span',
+              { className: 'bold', key: '2' },
+              this.props.name
+            ),
+            '!'
+          ]
+        )
+      }
+    } //  End of WelcomeMessage component.
+
+    //  Defining the UserApp component.
+    class UserApp extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {name: 'Jane Doe'}
+        this.handleChange = this.handleChange.bind(this);
+      }
+
+      handleChange(event) {
+        this.setState({name: event.target.value});
+      }
+
+      render() {
+        return React.createElement(
+          'div',
+          { className: 'flex', id: 'demo-3-react', key: '1' },
+          [
+            //  The text input
+            React.createElement(
+              'div',
+              { className: 'demo-3-container', key: '2' },
+              React.createElement(
+                'div',
+                { key: '3'},
+                [
+                  React.createElement(
+                    'div',
+                    { key: '4' },
+                    'Enter your name'
+                  ),
+                  React.createElement(
+                    'input',
+                    { 
+                      type: 'text', 
+                      value: this.state.name,
+                      onChange: this.handleChange, 
+                      key: '5' 
+                    }
+                  ),
+                ]
+              )
+            ),
+            //  The other components
+            React.createElement(
+              'div',
+              { className: 'demo-3-container', key: '6' },
+              React.createElement(NameLength, {name: this.state.name}, null),
+              React.createElement(UserBadge, {name: this.state.name}, null),
+              React.createElement(WelcomeMessage, {name: this.state.name}, null),
+            ),
+          ]
+        )
+      }
+    } //  End of UserApp component.
+
+    //  Rendering the EventDemo component
+    ReactDOM.render(
+      React.createElement(UserApp),
+      document.getElementById('demo-3')
+    );
+
   }
 
 }
-//  Code for demo 1;
-// class Demo1 extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = { demo: false };
-//   }
 
-//   render() {
-//     if (this.state.liked) {
-//       return 'You liked this.';
-//     }
-
-//     return React.createElement(
-//       'button',
-//       { onClick: () => this.setState({ liked: true }) },
-//       'Like'
-//     );
-//   }
-// }
-
-// const domContainer = document.querySelector('#demo1');
-// ReactDOM.render(React.createElement(Demo1), domContainer);
-
+// page 1 demo 1
 function hello_world() {
   alert("Hello world, from vanilla JS!")
 }
 
-function toggle_menu() {
-  
+// page 2 demo 2
+function text_input() {
+  let the_text = document.getElementById('text-input').value;
+  document.getElementById('text-input-display').innerHTML = the_text;
+}
+function submit_input() {
+  let the_text = document.getElementById('text-input').value;
+  alert("Submitting the text input: " + the_text);
+}
+
+// page 2 demo 3
+function name_input() {
+  let the_name = document.getElementById('demo-3-name-input').value;
+  document.getElementById('name-length').innerHTML = the_name.length;
+  let name_displays = document.querySelectorAll('.demo-3-name');
+  for (let i = 0; i < name_displays.length; i++) {
+    name_displays[i].innerHTML = the_name;
+  }
 }

@@ -3,7 +3,7 @@
   --blue: #61DAFB;
   --gray: #262626;
   --darkgray: rgb(26,26,26);
-  --lightgray: #404040;
+  --lightgray: #808080;
 }
 html, body {
   font-family: sans-serif;
@@ -191,15 +191,27 @@ h2 {
 }
 
 
-/* #demo-1 {
+#demo-3-vanilla, #demo-3-react {
   text-align: center;
-  width: 100%
+  width: 100%;
 }
-#demo-1 .demo-1-container {
+.demo-3-container {
   width: 50%;
   height: 300px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
-} */
+}
+.user-badge {
+  background: #808080;
+  height: 50px;
+  min-width: 200px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.user-badge span {
+  padding-left: 10px;
+}
