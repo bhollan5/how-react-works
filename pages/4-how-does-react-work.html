@@ -1,1 +1,64 @@
 <h2>4. How does React work?</h2>
+<p>In the last two pages, I have (hopefully) illustrated how ReactJS can be a useful tool for website building.</p>
+<p>On this page, I'll discuss <i>how</i> React works, "under the hood".</p>
+<br/>
+<p>I'll cover three topics:</p>
+<ul>
+  <li><span class="blue bold">Component</span> definition and display</li>
+  <li>The <span class="blue bold">virtual DOM</span></li>
+  <li>The <span class="blue bold">observer pattern</span>: Component state and methods</li>
+</ul>
+
+<br /><br /><br /><br />
+<hr/>
+<br /><br /><br /><br />
+
+<h3><span class="blue bold">Component</span> definition and display</h3>
+<p>Let me start from the beginning: A website, made from vanilla HTML and CSS.</p>
+<br/>
+<p>
+  The first step is to add the React scripts.  There are two of them.
+</p>
+<pre class="prettyprint">
+  &lt;script src=&quot;https://unpkg.com/react@17/umd/react.development.js&quot; crossorigin&gt;&lt;/script&gt;  
+  &lt;script src=&quot;https://unpkg.com/react-dom@17/umd/react-dom.development.js&quot; crossorigin&gt;&lt;/script&gt;
+</pre>
+<p>Including these two scripts provides two new Javascript objects I can use: </p>
+<ul>
+  <li>
+    <code class="blue">React</code> - an object for creating new components, using the syntax:
+    <ul><li><code class="blue">React.createElement(</code><code>[tagName], [tagAttrs], [children]</code><code class="blue">);</code></li></ul>
+  </li>
+  <li>
+    <code class="blue">ReactDOM</code> - an object for adding components to the existing DOM, using:
+    <ul><li><code class="blue">ReactDOM.render(</code><code>[ReactComponent], [DOMElement]</code><code class="blue">);</code></li></ul>
+  </li>
+</ul>
+<br/>
+<p>This sums up the fundamentals of defining components, and adding them to the page.</p>
+<br/>
+<p>
+  When using JSX to define components, the <code class="blue">React.createElement</code> is created automatically with the Babel library. 
+</p>
+<p>Babel does this by tokenizing the JSX, parsing the tokens into groups, and compiling those groups into the JS syntax.</p>
+<p>(That explanation could use a bit more research, but I'm fairly certain that's how they do it.)</p>
+
+<br /><br /><br /><br />
+<hr/>
+<br /><br /><br /><br />
+
+<h3>The <span class="blue bold">Virtual DOM</span></h3>
+<p>
+  I just explained how a single component can be defined in ReactJS, and displayed on a webpage.
+  But React's real power comes from component <i>composition</i>, and state and method management.
+</p>
+<p>In fact, the recommended way to build a ReactJS app is to use a single "root" React component, and compose all other content inside it.</p>
+<br/>
+<p>This is done with React's "virtual DOM" management.</p>
+<p>... [more here]</p>
+
+<br /><br /><br /><br />
+<hr/>
+<br /><br /><br /><br />
+
+<h3>The <span class="blue bold">Observer Pattern</span>: Component state and methods</h3>

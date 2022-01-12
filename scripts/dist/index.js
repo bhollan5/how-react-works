@@ -20,7 +20,7 @@ function goto(page) {
   http.onreadystatechange = function (e) {
     if (http.readyState == 4 && http.status == 200) {
       document.getElementById('page-content').innerHTML = http.responseText;
-      document.getElementById('page-content').innerHTML += '<div class="bottom-padding"></div>"';
+      document.getElementById('page-content').innerHTML += '<div class="bottom-padding"></div>';
 
       //  Update the sidebar's selected link.
       var selected_elements = document.getElementsByClassName('selected');
