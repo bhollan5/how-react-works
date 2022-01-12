@@ -327,6 +327,163 @@ const react_setups = {
       document.getElementById('demo-3')
     );
 
+  },
+
+  '3-jsx': function() {
+
+    //// BUTTON DEMO
+    function hello_world() {
+      alert("Hello world, from React, with JSX!");
+    }
+  
+    let element = <button onClick={hello_world}>Hello, world!</button>;
+    
+    ReactDOM.render(
+      element,
+      document.getElementById('button-demo')
+    );
+
+    ////  DEMO 1: Comment
+    let Comment = function(props) {
+      return (
+      <div className="comment-container">
+        <img src="../assets/profile-pic.png" />
+        <div>
+          <div className="comment-name">{props.comment_name}</div>
+          <div className="comment-text">{props.comment_text}</div>
+        </div>
+      </div>);
+    }
+
+    let commentSection = (
+      <div className="comment-section">
+        <div className="comment-header">
+          Comments
+        </div>
+        <Comment comment_name="John Doe" comment_text="Hey, nice ReactJS tutorial." />
+        <Comment comment_name="Evan You" comment_text="Personally I think VueJS is better." />
+        <Comment comment_name="Jordan Walke" comment_text="Well, you would, wouldn't you." />
+      </div>
+    )
+
+    ReactDOM.render(
+      commentSection,
+      document.getElementById('demo-1')
+    );
+
+    ////  DEMO 2: Events and State
+    class EventDemo extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { text_value: ''};
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+    
+      handleChange(event) {
+        this.setState({text_value: event.target.value});
+      }
+
+      handleSubmit(event) {
+        alert('Submitting the text input: ' + this.state.text_value);
+      }
+    
+      render() {
+        return (
+          <div>
+            <input type="text" onChange={this.handleChange} />
+            <br/><br/>
+            <div>Current input: {this.state.text_value}</div>
+            <br/>
+            <button onClick={this.handleSubmit}>Submit input</button>
+          </div>
+        )
+      }
+    } //  End of EventDemo definition
+
+    //  Rendering the EventDemo component
+    ReactDOM.render(
+      React.createElement(EventDemo),
+      document.getElementById('demo-2')
+    );
+
+    ////  DEMO 3: Reactivity and props.
+    class NameLength extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      render() {
+        return (
+          <div>Your name is <b>{this.props.name.length}</b> characters long.</div>
+        )
+      }
+    } //  End of NameLength component.
+
+    class UserBadge extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      /*<div class="user-badge"><img src="../assets/profile-pic.png"><span>Jane Doe</span></div>*/
+      render() {
+        return (
+          <div className="user-badge">
+            <img src="../assets/profile-pic.png" />
+            <span>{this.props.name}</span>
+          </div>
+        )
+      }
+    } //  End of UserBadge component.
+
+    //  Defining the WelcomeMessage component.
+    class WelcomeMessage extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      render() {
+        return (
+          <div>Welcome, <b>{this.props.name}</b>!</div>
+        )
+      }
+    } //  End of WelcomeMessage component.
+
+    class UserApp extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {name: 'Jane Doe'}
+        this.handleChange = this.handleChange.bind(this);
+      }
+
+      handleChange(event) {
+        this.setState({name: event.target.value});
+      }
+
+      render() {
+        return (
+          <div className="flex" id="demo-3-react">
+            <div className="demo-3-container">
+              <div>
+                <div>Enter your name</div>
+                <input onChange={this.handleChange} value={this.state.name} />
+              </div>
+            </div>
+            <div className="demo-3-container">
+              <NameLength name={this.state.name} />
+              <UserBadge name={this.state.name} />
+              <WelcomeMessage name={this.state.name} />
+            </div>
+          </div>
+        )
+      }
+    } //  End of UserApp component.
+
+    //  Rendering the EventDemo component
+    ReactDOM.render(
+      React.createElement(UserApp),
+      document.getElementById('demo-3')
+    );
   }
 
 }

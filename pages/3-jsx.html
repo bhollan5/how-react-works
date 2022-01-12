@@ -1,1 +1,211 @@
 <h2>3. JSX</h2>
+<p>JSX is a <i>syntax extension</i> of Javascript.</p>
+<p>With JSX, I can define React components using this syntax:</p>
+<pre class="prettyprint">
+  function hello_world() {
+    alert(&quot;Hello world, from React with JSX!&quot;);
+  }
+
+  let element = &lt;button onClick={hello_world}&gt;Hello, world!&lt;/button&gt;;
+  
+  ReactDOM.render(
+    element,
+    document.getElementById('button-demo')
+  );
+</pre>
+<p><i>(Unfortunately, the displayed code isn't highlighting JSX right. I'll fix that at some point.)</i></p>
+<p>The Babel library will then transform our JSX code into this:</p>
+<pre class="prettyprint">
+  function hello_world() {
+    alert(&quot;Hello world, from React with JSX!&quot;);
+  }
+
+  let ButtonComponent = React.createElement(
+    'button',                 // The tag name
+    { onClick: hello_world }, //  The element properties
+    'Hello world!'             //  The element's inner content
+  )
+
+  ReactDOM.render(
+    ButtonComponent,
+    document.getElementById('button-demo')
+  );
+</pre>
+<p>And here's the result of that code, made with JSX:</p>
+<div id="button-demo"></div>
+
+<br/><br/><br/><br/>
+<h3>Using JSX</h3>
+<p>
+  React's tutorial provides a pretty good section on how to
+  <a class="link" href="https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project" target="_blank">add JSX to a project</a>.
+</p>
+<p>There's a script you can add to your website, that runs in the client's browser, and translates the JSX there.</p>
+<p>
+  But the tool they really recommend is an NodeJS script that translates your JSX into vanilla JS on the server.
+  This is the recommended way to do it, as it makes the client's in-browser experience faster.
+</p>
+<p>
+  It's also how I have JSX set up on this website!
+</p>
+
+<br/><br/><br/><br/>
+<h3>JSX examples</h3>
+<p>In the <span onclick="goto('2-react-use-cases')" class="blue link">previous page</span>, I showed three examples of React components. </p>
+<p>Here's the code for those examples, using JSX.</p>
+<br/>
+<p>First, the comment section:</p>
+<pre class="prettyprint">
+  let Comment = function(props) {
+    return (
+    &lt;div className=&quot;comment-container&quot;&gt;
+      &lt;img src=&quot;../assets/profile-pic.png&quot; /&gt;
+      &lt;div&gt;
+        &lt;div className=&quot;comment-name&quot;&gt;{props.comment_name}&lt;/div&gt;
+        &lt;div className=&quot;comment-text&quot;&gt;{props.comment_text}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;);
+  }
+
+  let commentSection = (
+    &lt;div className=&quot;comment-section&quot;&gt;
+      &lt;div className=&quot;comment-header&quot;&gt;
+        Comments
+      &lt;/div&gt;
+      &lt;Comment comment_name=&quot;John Doe&quot; comment_text=&quot;Hey, nice ReactJS tutorial.&quot; /&gt;
+      &lt;Comment comment_name=&quot;Evan You&quot; comment_text=&quot;Personally I think VueJS is better.&quot; /&gt;
+      &lt;Comment comment_name=&quot;Jordan Walke&quot; comment_text=&quot;Well, you would, wouldn't you.&quot; /&gt;
+    &lt;/div&gt;
+  )
+
+  ReactDOM.render(
+    commentSection,
+    document.getElementById('demo-1')
+  );
+</pre>
+<p>And the result:</p>
+<div id="demo-1"></div>
+
+<br/><br/><br/><br/>
+<p>Here's the second example, with state and events:</p>
+<pre class="prettyprint">
+  class EventDemo extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { text_value: ''};
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+    }
+  
+    handleChange(event) {
+      this.setState({text_value: event.target.value});
+    }
+
+    handleSubmit(event) {
+      alert('Submitting the text input: ' + this.state.text_value);
+    }
+  
+    render() {
+      return (
+        &lt;div&gt;
+          &lt;input type=&quot;text&quot; onChange={this.handleChange} /&gt;
+          &lt;br/&gt;&lt;br/&gt;
+          &lt;div&gt;Current input: {this.state.text_value}&lt;/div&gt;
+          &lt;br/&gt;
+          &lt;button onClick={this.handleSubmit}&gt;Submit input&lt;/button&gt;
+        &lt;/div&gt;
+      )
+    }
+  } //  End of EventDemo definition
+
+  //  Rendering the EventDemo component
+  ReactDOM.render(
+    React.createElement(EventDemo),
+    document.getElementById('demo-2')
+  );
+</pre>
+<p>And the result:</p>
+<div id="demo-2"></div>
+
+<br/><br/><br/><br/>
+<p>And here's the third example, with reactive data and props:</p>
+<pre class="prettyprint">
+  class NameLength extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+
+    render() {
+      return (
+        &lt;div&gt;Your name is &lt;b&gt;{this.props.name.length}&lt;/b&gt; characters long.&lt;/div&gt;
+      )
+    }
+  } //  End of NameLength component.
+
+  class UserBadge extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+
+    /*&lt;div class=&quot;user-badge&quot;&gt;&lt;img src=&quot;../assets/profile-pic.png&quot;&gt;&lt;span&gt;Jane Doe&lt;/span&gt;&lt;/div&gt;*/
+    render() {
+      return (
+        &lt;div className=&quot;user-badge&quot;&gt;
+          &lt;img src=&quot;../assets/profile-pic.png&quot; /&gt;
+          &lt;span&gt;{this.props.name}&lt;/span&gt;
+        &lt;/div&gt;
+      )
+    }
+  } //  End of UserBadge component.
+
+  //  Defining the WelcomeMessage component.
+  class WelcomeMessage extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+
+    render() {
+      return (
+        &lt;div&gt;Welcome, &lt;b&gt;{this.props.name}&lt;/b&gt;!&lt;/div&gt;
+      )
+    }
+  } //  End of WelcomeMessage component.
+
+  class UserApp extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {name: 'Jane Doe'}
+      this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event) {
+      this.setState({name: event.target.value});
+    }
+
+    render() {
+      return (
+        &lt;div className=&quot;flex&quot; id=&quot;demo-3-react&quot;&gt;
+          &lt;div className=&quot;demo-3-container&quot;&gt;
+            &lt;div&gt;
+              &lt;div&gt;Enter your name&lt;/div&gt;
+              &lt;input onChange={this.handleChange} value={this.state.name} /&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div className=&quot;demo-3-container&quot;&gt;
+            &lt;NameLength name={this.state.name} /&gt;
+            &lt;UserBadge name={this.state.name} /&gt;
+            &lt;WelcomeMessage name={this.state.name} /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      )
+    }
+  } //  End of UserApp component.
+
+  //  Rendering the EventDemo component
+  ReactDOM.render(
+    React.createElement(UserApp),
+    document.getElementById('demo-3')
+  );
+</pre>
+<p>And the result:</p>
+<div id="demo-3"></div>
