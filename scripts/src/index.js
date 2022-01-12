@@ -14,6 +14,7 @@ function goto(page) {
   http.onreadystatechange = (e) => {
     if (http.readyState == 4 && http.status == 200) {
       document.getElementById('page-content').innerHTML = http.responseText;
+      document.getElementById('page-content').innerHTML += '<div class="bottom-padding"></div>"';
 
       //  Update the sidebar's selected link.
       let selected_elements = document.getElementsByClassName('selected');
@@ -33,7 +34,7 @@ function goto(page) {
       PR.prettyPrint()
 
       //  Scroll to top of page
-      document.getElementById('page-content').scrollTop = 0;
+      document.getElementById('page-content-container').scrollTop = 0;
     }
   }
 }

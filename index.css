@@ -136,6 +136,10 @@ h1 {
   bottom: 50px;
 }
 
+#page-content-container {
+  width: 100%;
+  overflow-y: scroll;
+}
 #page-content {
   width: 800px;
   margin: 0 auto;
@@ -143,7 +147,10 @@ h1 {
   position: relative;
   padding: 25px 100px 400px 100px;
   box-sizing: border-box;
-  overflow-y: scroll;
+}
+.bottom-padding {
+  height: 300px;
+  width: 10px;
 }
 
 h2 {

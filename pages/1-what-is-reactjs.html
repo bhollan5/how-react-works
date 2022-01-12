@@ -41,7 +41,7 @@
   &lt;div id=&quot;button-demo&quot;&gt;&lt;/div&gt;
   &lt;!--  And here's the Javascript we'll run to create our button component. --&gt;
   &lt;script&gt;
-  //  A function we want the button to call. 
+      //  A function we want the button to call. 
       function hello_world() {
         alert(&quot;Hello world, from React!&quot;);
       }
@@ -51,7 +51,7 @@
         return React.createElement(
           'button',                 // The tag name
           { onClick: hello_world }, //  The element properties
-          'Hello world!'             //  The element's inner content
+          'Hello world!'            //  The element's inner content
         )
       }
 
