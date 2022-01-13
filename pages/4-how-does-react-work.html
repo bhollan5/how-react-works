@@ -36,12 +36,26 @@
 </ul>
 <br/>
 <p>This sums up the fundamentals of defining components, and adding them to the page.</p>
+<p>
+  <code class="blue">React.createElement</code> returns a new object, 
+  while <code class="blue">ReactDOM.render</code> starts a new VirtualDOM, displaying a component on the page.
+</p>
+<p>
+  You can look at the source code for <a href="https://unpkg.com/react@17.0.2/umd/react.development.js" class="blue link" target="_blank">React</a>
+  and <a href="https://unpkg.com/react-dom@17/umd/react-dom.development.js" class="blue link" target="_blank">ReactDOM</a>, too.  
+  Both scripts are pretty long, to account for all the nuances of these mechanics. 
+</p>
+
 <br/>
 <p>
   When using JSX to define components, the <code class="blue">React.createElement</code> is created automatically with the Babel library. 
 </p>
 <p>Babel does this by tokenizing the JSX, parsing the tokens into groups, and compiling those groups into the JS syntax.</p>
-<p>(That explanation could use a bit more research, but I'm fairly certain that's how they do it.)</p>
+<p>
+  That explanation could use a bit more research, but I'm fairly certain that's how they do it.
+  The Babel-react-app <a href="https://github.com/facebook/create-react-app/tree/main/packages/babel-preset-react-app" target="_blank" class="blue link">source code</a>
+  is available to browse as well.
+</p>
 
 <br /><br /><br /><br />
 <hr/>
@@ -54,11 +68,51 @@
 </p>
 <p>In fact, the recommended way to build a ReactJS app is to use a single "root" React component, and compose all other content inside it.</p>
 <br/>
-<p>This is done with React's "virtual DOM" management.</p>
-<p>... [more here]</p>
+<p>This is done with React's "virtual DOM" management<sup><a href="https://reactjs.org/docs/faq-internals.html" target="_blank" class="blue link">[1]</a></sup>.</p>
+<br/>
+<p>"DOM" stands for Document Object Model. All browsers use a DOM to represent HTML content, and JavaScript provides tools to dynamically manipulate the DOM as well. </p>
+<p>
+  A Virtual DOM is a Document Object Model that's managed by a JS framework, like React, instead of a web browser.
+  In React, the VDOM is used to manage reactive state in composed components.
+</p>
+<br/>
+<p>
+  React's virtual DOM is used to sync app data with the displayed browser DOM, in a process called Reconciliation
+  <sup><a href="https://github.com/acdlite/react-fiber-architecture" target="_blank" class="blue link">[2]</a></sup>.
+</p>
 
 <br /><br /><br /><br />
 <hr/>
 <br /><br /><br /><br />
 
 <h3>The <span class="blue bold">Observer Pattern</span>: Component state and methods</h3>
+
+<p>I've gone over how React components are defined, and how the VDOM links them to the browser's DOM.</p>
+<p>The crucial concept behind React's "reactivity", is React's implementation of the observer pattern.</p>
+<br/>
+<p>
+  The observer pattern<sup><a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank" class="blue link">[3]</a></sup>
+  is a software design pattern where data from one source is "observed" by other areas of the code.
+</p>
+<p>When the observed data is updated, the various "observer" code areas are updated as well, "reactively".</p>
+<br/>
+<p>In ReactJS, a component's "state" is the observed source of data.</p>
+<p>
+  The component's rendered HTML data can reference that component's state in one or more places.
+  If an event updates that component's state, using the <code class="blue">setState</code> method, 
+  the rendered HTML data will reactively update as well. 
+</p>
+<br/>
+<p>
+  A component's child components can also be passed state data as a "prop".
+  This allows for deeply nested reactive data used in diverse places, all "observing" the same single source of truth.
+</p>
+
+<br /><br /><br /><br />
+<hr/>
+<br /><br /><br /><br />
+
+<p>This has been an overview of the inner workings of React, as a library for organizing client-side website content.</p>
+<p>But how do we actually <i>serve</i> our React content to the user's browsers? </p>
+<br/>
+<p>Up next we'll talk about how to <span onclick="goto('5-serving-a-react-website')" class="blue link">serve a React website</span>.</p>
