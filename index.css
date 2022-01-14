@@ -218,3 +218,19 @@ h2 {
 .user-badge span {
   padding-left: 10px;
 }
+
+.landingpage-sectionlink {
+  display: flex;
+  margin: 50px 0px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.landingpage-sectionlink div, .landingpage-sectionlink img {
+  width: 48%;
+}
+.landingpage-sectionlink div {
+  padding-top: 40px;
+}
+.landingpage-sectionlink:hover h3 {
+  text-decoration: underline;
+}
