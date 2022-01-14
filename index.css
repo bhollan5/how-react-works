@@ -129,10 +129,6 @@ h1 {
 }
 #side-bar nav div#glossary {
   position: absolute;
-  bottom: 100px;
-}
-#side-bar nav div#sources {
-  position: absolute;
   bottom: 50px;
 }
 

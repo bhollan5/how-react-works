@@ -2,10 +2,82 @@
 <p>React is a powerful tool for creating website interfaces.</p>
 <p>
   But when it comes to a React website's server, there are several options to consider
-  <sup><a href="https://reactjs.org/docs/create-a-new-react-app.html#recommended-toolchains" target="_blank" class="blue link">[1]</a></sup>:
+  <sup><a href="https://reactjs.org/docs/create-a-new-react-app.html#recommended-toolchains" target="_blank" class="blue link">[1]</a></sup>. 
 </p>
+<p>Below are, in my opinion, the two main options for modern websites:</p>
 <ul>
   <li>A <span class="blue bold">static website</span></li>
   <li>A <span class="blue bold">single page web app</span></li>
-  <li>A <span class="blue bold">server side rendered web app</span></li>
 </ul>
+
+<br /><br /><br /><br />
+<hr/>
+<br /><br /><br /><br />
+
+<h3>Serving a <span class="blue bold">static website</span></h3>
+<p>
+  A static website is a website where pages are served to browsers exactly the way they're stored on the server
+  <sup><a href="https://en.wikipedia.org/wiki/Static_web_page" class="blue link" target="_blank">[2]</a></sup>.
+</p>
+<p>
+  Static websites are generally easy to serve. A service like NginX can be used to map URL routes to HTML pages in a file tree,
+  and load other assets in a simlar way.
+</p>
+<br/>
+<p>You can use ReactJS with a static website -- just link the React scripts in your code, and you can use React tools in whatever JavaScript you add.</p>
+<p>You can also use JSX to build a static website, with Babel.</p>
+<br/>
+<p>
+  React's official website recommends<sup><a href="https://reactjs.org/docs/create-a-new-react-app.html#gatsby" class="blue link" target="_blank">[3]</a></sup>
+  the service Gatsby. Gatsby is a framework that provides all the React features, and also bundles your code with Webpack, so it will run faster in the browser.
+</p>
+<p>
+  Gatsby also provides templated React components and page layouts for you to use, and other features, like GraphQL set up. 
+</p>
+
+<br /><br /><br /><br />
+<hr/>
+<br /><br /><br /><br />
+
+<h3>Serving a <span class="blue bold">single page web app</span></h3>
+<p>
+  A single page app, or SPA, is a website design pattern where the website loads a single HTML file, 
+  and any other page route content is then loaded into that HTML file, without actually reloading the page 
+  <sup><a href="https://en.wikipedia.org/wiki/Single-page_application" target="_blank" class="blue link">[4]</a></sup>.
+</p>
+<br/>
+<p>
+  This set up has a few advantages.  For one thing, it's easy to reuse the same website header and navigation links, 
+  while still having many different pages with different content. 
+</p>
+<p>
+  A SPA website doesn't reload completely between page route changes, which means transitions between pages can be faster and smoother.
+</p>
+<br/>
+<p>
+  You'll hear a lot about <i>server-side rendering</i> versus <i>client-side rendering</i> with SPAs.  With server-side rendering, an
+  SPA will load the entire website, including the route page's contents, the first time the page loads.
+</p>
+<p>
+  Server-side rendering is better than client-side rendering, where the base page is sent to the browser, which then makes
+  an additional call to the server to load the route's content. 
+</p>
+<p>
+  However, once the website is initially loaded, when the user navigates to a new page, <i>both</i> strategies 
+  will load the route page's content from the server, and render it client-side.  That's simply how SPAs work. 
+</p>
+<br/>
+<p>
+  React's website recommends<sup><a href="https://reactjs.org/docs/create-a-new-react-app.html#nextjs">[5]</a></sup> NextJS for building
+  single-page apps, a framework for server-side rendering.  
+</p>
+<p>NextJS is built on NodeJS, and provides "styling and routing solutions".</p>
+<br/>
+<p>
+  I should mention that this website is a client-side rendered SPA app that doesn't 
+  use NextJS. 
+</p>
+<p>
+  I'm using my own simple NodeJS set up to serve the initial index.html file,
+  and then a browser script to make calls back to the server to load individual route pages. 
+</p>
